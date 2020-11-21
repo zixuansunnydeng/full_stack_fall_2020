@@ -25,9 +25,8 @@ def about():
 
 @app.route('/post/<int:post_id>')
 def post(post_id):
-    for post in blog_posts:
-        if post.id == post_id:
-            return render_template('post.html', post=post)
+    post = blog_posts[post_id]
+    return render_template('post.html', post=post)
 
 
 @app.route('/add')
