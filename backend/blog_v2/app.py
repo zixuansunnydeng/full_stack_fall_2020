@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import requests
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -45,6 +46,15 @@ def addpost():
     db.session.add(post)
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.route('/news')
+def news():
+    url = ('http://newsapi.org/v2/top-headlines?country=us&apiKey=ff19e906e6124733a3c870631fb155f0')
+    response = requests.get(url)
+    data = response.json()
+    articles = data['articles']
+    return render_template('news.html', articles=articles)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
