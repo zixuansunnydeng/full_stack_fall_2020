@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+     <!-- Page Header -->
+    <header class="masthead" style="background-image: url(https://fullstack2020fall.s3.us-east-2.amazonaws.com/about-bg.jpg)">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="page-heading">
+              <h1>Add post</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+{% load crispy_forms_tags %}
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <form action="/blog/add" method="post">
+          {% csrf_token %}
+          {{ form | crispy }}
+          <input type="submit" value="Add" />
+        </form>
+      </div>
+    </div>
+  </div>
+</article>
+{% endblock %}
