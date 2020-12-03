@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'rdck)&*jof#k@q*lmsm$=iyfj9o+tg1nf*(tcazn&0kj!p+4#-'
+SECRET_KEY = '&xs6d%n&u^8n-yu7tc#=yrqd*1@lmbre)&_akikd9sbplf&i!b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'twitter',
     'blog',
     'crispy_forms',
     'django.contrib.admin',
@@ -78,11 +79,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djangointro',
+        'NAME': 'django_blog',
         'USER': 'uncaught',
         'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': ''
     }
 }
 
@@ -125,4 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = '/'

@@ -1,0 +1,16 @@
+{{ tweet.content }}
+
+{% for comment in tweet.comments.all %}
+  <p>{{ comment.content }} - {{ comment.user.username }}</p>
+{% endfor %}
+
+{% if current_user.id is not None %}
+Add a comment
+<form method="post">
+  {% csrf_token %}
+  {{ comment_form }}
+  <input type="submit" value="Add" class="btn btn-primary" />
+</form>
+{% else %}
+<a href="/accounts/login">Log in</a> to leave a comment
+{% endif %}
