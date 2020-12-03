@@ -1,3 +1,11 @@
+{% extends 'twitter/base.html' %}
+
+{% block content %}
+
+<h1> Welcome to Full Stack Twitter </h1>
+
+<p> Please login or <a href="/twitter/signup"> signup </a> </p>
+
 {% if form.errors %}
 <p> error </p>
 {% endif %}
@@ -11,3 +19,4 @@
   <input type="hidden" name="next" value="{{ next }}">
 </form>
 
+{% endblock %}

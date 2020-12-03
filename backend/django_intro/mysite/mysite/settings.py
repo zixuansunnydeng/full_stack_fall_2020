@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'twitter.context_processors.users_processor',
             ],
         },
     },
@@ -129,4 +130,5 @@ STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/twitter'
+LOGOUT_REDIRECT_URL = '/twitter'

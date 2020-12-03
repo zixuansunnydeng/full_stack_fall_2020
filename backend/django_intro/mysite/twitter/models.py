@@ -10,6 +10,9 @@ class Tweet(models.Model):
   def __str__(self) -> str:
     return '{} says {}'.format(self.user, self.content)
 
+  class Meta:
+    ordering = ('-date_posted',)
+
 class Comment(models.Model):
   tweet = models.ForeignKey('Tweet', on_delete=CASCADE, related_name='comments')
   user = models.ForeignKey(User, on_delete=CASCADE)

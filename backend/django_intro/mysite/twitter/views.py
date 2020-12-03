@@ -1,16 +1,22 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
+from django.conf import settings
+
 
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import CommentForm, TweetForm
 from .models import Tweet, Follow
 
+def logout_twitter(request):
+  logout(request)
+  return redirect('twitter:index')
+
 def index(request):
   if not request.user.is_authenticated:
-    return redirect('accounts/login')
+    return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
   followings = request.user.following.all()
   tweets = []
   for following in followings:

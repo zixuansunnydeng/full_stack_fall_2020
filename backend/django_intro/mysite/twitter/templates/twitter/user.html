@@ -1,7 +1,8 @@
+{% extends "twitter/base.html" %}
+{% block content %}
 {% load crispy_forms_tags %}
 <h1>{{ user.username }}</h1>
-<p>{{ user.following.count }} following</p>
-<p>{{ user.followers.count }} followers</p>
+<p>{{ user.following.count }} following {{ user.followers.count }} followers</p>
 
 {% if current_user.id is not None and current_user.id != user.id %}
   <form method="post">
@@ -14,6 +15,23 @@
   </form>
 {% endif %}
 
-{% for tweet in tweets %}
-  <a href="{% url 'twitter:tweet' tweet.id %}">{{ tweet.content }}</a>
-{% endfor %}
+  <div class="mb-3"></div>
+  {% for tweet in tweets %}
+    <div class="card">
+      <div class="card-header">
+        <a href="{% url 'twitter:user' tweet.user.id %}"> {{ tweet.user.username }}</a>
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ tweet.content }}</p>
+      </div>
+      <div class="card-footer text-muted">
+        <div class="row">
+          <div class="col"><p class="mb-0"><a href="{% url 'twitter:tweet' tweet.id %}">{{ tweet.comments.count }} comments</a></p></div>
+          <div class="col"><p class="mb-0 text-right">{{ tweet.date_posted|date:'Y-m-d' }}</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3"></div>
+  {% endfor %}
+
+{% endblock %}
