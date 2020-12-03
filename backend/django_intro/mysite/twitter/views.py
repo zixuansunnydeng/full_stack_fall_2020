@@ -9,7 +9,24 @@ from .forms import CommentForm, TweetForm
 from .models import Tweet, Follow
 
 def index(request):
-  return render(request, 'twitter/index.html')
+  if not request.user.is_authenticated:
+    return redirect('accounts/login')
+  followings = request.user.following.all()
+  tweets = []
+  for following in followings:
+    print(following)
+    user = following.user_to
+    user_tweets = Tweet.objects.filter(user=user)[:5]
+    for t in user_tweets:
+      tweets.append(t)
+    print(tweets)
+  print('what')
+  print(tweets)
+  context = {
+    'user': request.user,
+    'tweets': tweets
+  }
+  return render(request, 'twitter/index.html', context)
 
 def signup(request):
   if request.method == 'POST':

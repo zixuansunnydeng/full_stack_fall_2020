@@ -1,5 +1,9 @@
 {% if user.is_authenticated %}
-  Your name is {{ user.username }}
+  Hi {{ user.username }}
+
+  {% for tweet in tweets %}
+    <p>{{ tweet.user.username }} <a href="{% url 'twitter:tweet' tweet.id %}">{{ tweet.content }}</a>
+  {% endfor %}
 {% else %}
   Please <a href="{% url 'login' %}">log in</a>
 {% endif %}
