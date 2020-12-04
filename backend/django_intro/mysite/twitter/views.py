@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 from django.conf import settings
 
 
@@ -20,14 +22,10 @@ def index(request):
   followings = request.user.following.all()
   tweets = []
   for following in followings:
-    print(following)
     user = following.user_to
     user_tweets = Tweet.objects.filter(user=user)[:5]
     for t in user_tweets:
       tweets.append(t)
-    print(tweets)
-  print('what')
-  print(tweets)
   context = {
     'user': request.user,
     'tweets': tweets
@@ -48,11 +46,10 @@ def signup(request):
     form = UserCreationForm()
   return render(request, 'registration/signup.html', { 'form': form })
 
+@login_required()
 # page to create a new tweet as logged in user
 def compose_tweet(request):
   current_user = request.user
-  if not current_user.id:
-    return redirect('/accounts/login')
   user = User.objects.get(id=current_user.id)
   if request.method == 'POST':
     form = TweetForm(request.POST)
@@ -90,6 +87,7 @@ def tweet(request, tweet_id):
   context['comment_form'] = form
   return render(request, 'twitter/tweet.html', context)
 
+@login_required()
 def user(request, user_id):
   current_user = request.user
   user = get_object_or_404(User, pk=user_id)
