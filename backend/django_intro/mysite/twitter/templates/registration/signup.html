@@ -1,0 +1,17 @@
+{% extends 'twitter/base.html' %}
+
+{% block content %}
+{% if form.errors %}
+<p> error </p>
+{% endif %}
+
+{% load crispy_forms_tags %}
+<form method="post" action="{% url 'twitter:signup' %}">
+  {% csrf_token %}
+  {{ form|crispy }}
+
+  <input type="submit" value="Sign up" class="btn btn-primary">
+</form>
+
+
+{% endblock %}
